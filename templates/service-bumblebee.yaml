@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "bumblebee.fullname" . }}
+  labels:
+    {{- include "bumblebee.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.bumblebee.service.type }}
+  ports:
+    - port: {{ .Values.bumblebee.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "bumblebee.selectorLabels" . | nindent 4 }}
