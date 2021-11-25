@@ -8,7 +8,6 @@ bumblebee:
   image:
     repository: registry.rc.nectar.org.au/nectar/bumblebee
     pullPolicy: Always
-    tag: latest
   service:
     type: NodePort
     port: 80
@@ -45,6 +44,10 @@ conf:
   REDIS_HOST: redis
   DJANGO_MIGRATE: True
   DJANGO_COLLECT_STATIC: True
+
+vault:
+  role: k8s
+  settings_secret: 'path/to/secret/in/vault'
 
 imagePullSecrets: []
 nameOverride: ""

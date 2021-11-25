@@ -13,10 +13,17 @@ spec:
       {{- include "bumblebee.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
       annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        vault.hashicorp.com/role: "{{ .Values.vault.role }}"
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/agent-inject-status: "update"
+        vault.hashicorp.com/agent-inject-secret-secret_envs: "{{ .Values.vault.settings_secret }}"
+        vault.hashicorp.com/agent-inject-template-secret_envs: |
+          {{ print "{{- with secret \"" .Values.vault.settings_secret "\" -}}" }}
+          {{ print "{{- range $key, $val := .Data.data }}" }}
+          {{ print "export {{ $key }}=\"{{ $val }}\"" }}
+          {{ print "{{- end }}" }}
+          {{ print "{{- end -}}" }}
       labels:
         {{- include "bumblebee.selectorLabels" . | nindent 8 }}
     spec:
@@ -31,7 +38,7 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.bumblebee.image.repository }}:{{ .Values.bumblebee.image.tag }}"
+          image: "{{ .Values.bumblebee.image.repository }}:{{ .Values.bumblebee.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.bumblebee.image.pullPolicy }}
           envFrom:
             - configMapRef:
@@ -54,7 +61,7 @@ spec:
         - name: {{ .Chart.Name }}-init
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.bumblebee.image.repository }}:{{ .Values.bumblebee.image.tag }}"
+          image: "{{ .Values.bumblebee.image.repository }}:{{ .Values.bumblebee.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.bumblebee.image.pullPolicy }}
           command: ['/docker-setup.sh']
           envFrom:
