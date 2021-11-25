@@ -11,7 +11,7 @@ bumblebee:
   service:
     type: NodePort
     port: 80
-  
+
 guacamole:
   image:
     repository: guacamole/guacamole
@@ -20,7 +20,7 @@ guacamole:
   service:
     type: NodePort
     port: 8080
-  
+
 conf:
   DEBUG: True
   SECRET_KEY: secret
@@ -28,19 +28,16 @@ conf:
   SITE_URL:
   GUACAMOLE_URL:
   OS_APPLICATION_CREDENTIAL_ID:
-  OS_APPLICATION_CREDENTIAL_SECRET:
   OS_AUTH_URL: https://keystone.rc.nectar.org.au:5000/v3
   OS_KEYNAME: bumblebee
   OS_NETWORK: bumblebee
   OS_SECGROUPS: bumblebee
   OIDC_SERVER_URL: https://sso.rc.nectar.org.au/auth/realms/nectar/protocol/openid-connect
   OIDC_RP_CLIENT_ID: bumblebee
-  OIDC_RP_CLIENT_SECRET: 
   ENVIRONMENT_NAME: production
   ENVIRONMENT_COLOR: '#ff0000'
   DB_HOST: localhost
   DB_USER: bumblebee
-  DB_PASSWORD:
   REDIS_HOST: redis
   DJANGO_MIGRATE: True
   DJANGO_COLLECT_STATIC: True
