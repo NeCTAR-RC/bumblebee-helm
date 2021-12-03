@@ -43,7 +43,7 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "bumblebee.fullname" . }}
-          command: ['django-admin', 'rqworker']
+          command: ['/docker-run-rqworker.sh']
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
