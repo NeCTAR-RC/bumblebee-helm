@@ -40,6 +40,7 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.bumblebee.image.repository }}:{{ .Values.bumblebee.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.bumblebee.image.pullPolicy }}
+          command: ['sh', '-c', '. /vault/secrets/secret_envs && /docker-run-bumblebee.sh']
           envFrom:
             - configMapRef:
                 name: {{ include "bumblebee.fullname" . }}
@@ -63,7 +64,7 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.bumblebee.image.repository }}:{{ .Values.bumblebee.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.bumblebee.image.pullPolicy }}
-          command: ['/docker-setup.sh']
+          command: ['sh', '-c', '. /vault/secrets/secret_envs && /docker-setup.sh']
           envFrom:
             - configMapRef:
                 name: {{ include "bumblebee.fullname" . }}
