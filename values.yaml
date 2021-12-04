@@ -23,7 +23,6 @@ guacamole:
 
 conf:
   DEBUG: False
-  SECRET_KEY:
   ALLOWED_HOSTS: '*'
   SITE_URL:
   GUACAMOLE_URL:
