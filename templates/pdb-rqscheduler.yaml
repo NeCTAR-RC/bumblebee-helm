@@ -1,0 +1,14 @@
+{{- if .Values.rqscheduler.pdb.enabled }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "bumblebee.fullname" . }}
+  labels:
+    {{- include "bumblebee.labels" . | nindent 4 }}
+spec:
+  minAvailable: {{ .Values.rqscheduler.pdb.minAvailable | default 0 }}
+  selector:
+    matchLabels:
+      {{- include "bumblebee.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: rqscheduler
+{{- end }}

@@ -11,6 +11,9 @@ bumblebee:
   service:
     type: NodePort
     port: 80
+  pdb:
+    enabled: false
+    minAvailable: 0
 
 guacamole:
   image:
@@ -20,6 +23,19 @@ guacamole:
   service:
     type: NodePort
     port: 8080
+  pdb:
+    enabled: false
+    minAvailable: 0
+
+rqworker:
+  pdb:
+    enabled: false
+    minAvailable: 0
+
+rqscheduler:
+  pdb:
+    enabled: false
+    minAvailable: 0
 
 conf:
   DEBUG: False
@@ -108,3 +124,4 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
