@@ -3,15 +3,16 @@ kind: Deployment
 metadata:
   name: {{ include "bumblebee.fullname" . }}-guacamole
   labels:
-{{ include "bumblebee.labels" . | indent 4 }}
+    {{- include "bumblebee.labels" . | nindent 4 }}
+    app.kubernetes.io/component: guacamole
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "bumblebee.name" . }}-guacamole
-      app.kubernetes.io/instance: {{ .Release.Name }}
+      {{- include "bumblebee.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: guacamole
   template:
     metadata:
       annotations:
@@ -27,14 +28,14 @@ spec:
           {{ print "{{- end }}" }}
           {{ print "{{- end -}}" }}
       labels:
-        app.kubernetes.io/name: {{ include "bumblebee.name" . }}-guacamole
-        app.kubernetes.io/instance: {{ .Release.Name }}
+        {{- include "bumblebee.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: guacamole
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ template "bumblebee.serviceAccountName" . }}
+      serviceAccountName: {{ include "bumblebee.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:

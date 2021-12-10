@@ -4,6 +4,7 @@ metadata:
   name: {{ include "bumblebee.fullname" . }}
   labels:
     {{- include "bumblebee.labels" . | nindent 4 }}
+    app.kubernetes.io/component: bumblebee
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
@@ -11,6 +12,7 @@ spec:
   selector:
     matchLabels:
       {{- include "bumblebee.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: bumblebee
   template:
     metadata:
       annotations:
@@ -27,6 +29,7 @@ spec:
           {{ print "{{- end -}}" }}
       labels:
         {{- include "bumblebee.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: bumblebee
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:

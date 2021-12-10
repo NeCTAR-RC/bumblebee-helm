@@ -12,5 +12,5 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app.kubernetes.io/name: {{ include "bumblebee.name" . }}-guacamole
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    {{- include "bumblebee.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: guacamole
