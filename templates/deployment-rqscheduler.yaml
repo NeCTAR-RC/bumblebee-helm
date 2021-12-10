@@ -54,9 +54,13 @@ spec:
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.affinity }}
+      {{- if .Values.rqscheduler.affinity }}
+      affinity: {{- include "common.tplvalues.render" (dict "value" .Values.rqscheduler.affinity "context" $) | nindent 8 }}
+      {{- else }}
       affinity:
-        {{- toYaml . | nindent 8 }}
+        podAffinity: {{- include "common.affinities.pods" (dict "type" .Values.rqscheduler.podAffinityPreset "component" "rqscheduler" "context" $) | nindent 10 }}
+        podAntiAffinity: {{- include "common.affinities.pods" (dict "type" .Values.rqscheduler.podAntiAffinityPreset "component" "rqscheduler" "context" $) | nindent 10 }}
+        nodeAffinity: {{- include "common.affinities.nodes" (dict "type" .Values.rqscheduler.nodeAffinityPreset.type "key" .Values.rqscheduler.nodeAffinityPreset.key "values" .Values.rqscheduler.nodeAffinityPreset.values) | nindent 10 }}
       {{- end }}
       {{- with .Values.tolerations }}
       tolerations:

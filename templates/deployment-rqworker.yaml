@@ -54,9 +54,13 @@ spec:
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.affinity }}
+      {{- if .Values.rqworker.affinity }}
+      affinity: {{- include "common.tplvalues.render" (dict "value" .Values.rqworker.affinity "context" $) | nindent 8 }}
+      {{- else }}
       affinity:
-        {{- toYaml . | nindent 8 }}
+        podAffinity: {{- include "common.affinities.pods" (dict "type" .Values.rqworker.podAffinityPreset "component" "rqworker" "context" $) | nindent 10 }}
+        podAntiAffinity: {{- include "common.affinities.pods" (dict "type" .Values.rqworker.podAntiAffinityPreset "component" "rqworker" "context" $) | nindent 10 }}
+        nodeAffinity: {{- include "common.affinities.nodes" (dict "type" .Values.rqworker.nodeAffinityPreset.type "key" .Values.rqworker.nodeAffinityPreset.key "values" .Values.rqworker.nodeAffinityPreset.values) | nindent 10 }}
       {{- end }}
       {{- with .Values.tolerations }}
       tolerations:

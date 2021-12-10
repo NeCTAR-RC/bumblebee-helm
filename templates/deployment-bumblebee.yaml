@@ -76,9 +76,13 @@ spec:
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.affinity }}
+      {{- if .Values.bumblebee.affinity }}
+      affinity: {{- include "common.tplvalues.render" (dict "value" .Values.bumblebee.affinity "context" $) | nindent 8 }}
+      {{- else }}
       affinity:
-        {{- toYaml . | nindent 8 }}
+        podAffinity: {{- include "common.affinities.pods" (dict "type" .Values.bumblebee.podAffinityPreset "component" "bumblebee" "context" $) | nindent 10 }}
+        podAntiAffinity: {{- include "common.affinities.pods" (dict "type" .Values.bumblebee.podAntiAffinityPreset "component" "bumblebee" "context" $) | nindent 10 }}
+        nodeAffinity: {{- include "common.affinities.nodes" (dict "type" .Values.bumblebee.nodeAffinityPreset.type "key" .Values.bumblebee.nodeAffinityPreset.key "values" .Values.bumblebee.nodeAffinityPreset.values) | nindent 10 }}
       {{- end }}
       {{- with .Values.tolerations }}
       tolerations:

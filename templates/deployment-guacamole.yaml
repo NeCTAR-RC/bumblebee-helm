@@ -67,11 +67,15 @@ spec:
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-    {{- with .Values.affinity }}
+      {{- if .Values.guacamole.affinity }}
+      affinity: {{- include "common.tplvalues.render" (dict "value" .Values.guacamole.affinity "context" $) | nindent 8 }}
+      {{- else }}
       affinity:
-        {{- toYaml . | nindent 8 }}
-    {{- end }}
-    {{- with .Values.tolerations }}
+        podAffinity: {{- include "common.affinities.pods" (dict "type" .Values.guacamole.podAffinityPreset "component" "guacamole" "context" $) | nindent 10 }}
+        podAntiAffinity: {{- include "common.affinities.pods" (dict "type" .Values.guacamole.podAntiAffinityPreset "component" "guacamole" "context" $) | nindent 10 }}
+        nodeAffinity: {{- include "common.affinities.nodes" (dict "type" .Values.guacamole.nodeAffinityPreset.type "key" .Values.guacamole.nodeAffinityPreset.key "values" .Values.guacamole.nodeAffinityPreset.values) | nindent 10 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
-    {{- end }}
+      {{- end }}

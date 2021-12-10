@@ -14,6 +14,14 @@ bumblebee:
   pdb:
     enabled: false
     minAvailable: 0
+  podAffinityPreset: ""
+  podAntiAffinityPreset: soft
+  nodeAffinityPreset:
+    type: ""
+    key: ""
+    values: []
+  affinity: {}
+  
 
 guacamole:
   image:
@@ -26,16 +34,37 @@ guacamole:
   pdb:
     enabled: false
     minAvailable: 0
+  podAffinityPreset: ""
+  podAntiAffinityPreset: soft
+  nodeAffinityPreset:
+    type: ""
+    key: ""
+    values: []
+  affinity: {}
 
 rqworker:
   pdb:
     enabled: false
     minAvailable: 0
+  podAffinityPreset: ""
+  podAntiAffinityPreset: soft
+  nodeAffinityPreset:
+    type: ""
+    key: ""
+    values: []
+  affinity: {}
 
 rqscheduler:
   pdb:
     enabled: false
     minAvailable: 0
+  podAffinityPreset: ""
+  podAntiAffinityPreset: soft
+  nodeAffinityPreset:
+    type: ""
+    key: ""
+    values: []
+  affinity: {}
 
 conf:
   DEBUG: False
