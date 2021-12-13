@@ -7,7 +7,7 @@ metadata:
     app.kubernetes.io/component: rqworker
 spec:
   {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.rqworker.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
