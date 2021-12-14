@@ -2,7 +2,7 @@
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: {{ include "bumblebee.fullname" . }}
+  name: {{ include "bumblebee.fullname" . }}-rqworker
   labels:
     {{- include "bumblebee.labels" . | nindent 4 }}
 spec:
