@@ -11,6 +11,7 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
+  sessionAffinity: ClientIP
   selector:
     {{- include "bumblebee.selectorLabels" . | nindent 4 }}
     app.kubernetes.io/component: guacamole
