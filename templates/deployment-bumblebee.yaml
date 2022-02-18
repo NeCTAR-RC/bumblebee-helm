@@ -54,12 +54,15 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: /healthcheck/
               port: http
-          readinessProbe:
+            periodSeconds: 5
+          startupProbe:
             httpGet:
-              path: /
+              path: /healthcheck/
               port: http
+            initialDelaySeconds: 10
+            failureThreshold: 6
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       initContainers:

@@ -2,7 +2,8 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ include "bumblebee.fullname" . }}
-data: 
+data:
+  IMAGE_ID: "{{ .Values.bumblebee.image.repository }}:{{ .Values.bumblebee.image.tag | default .Chart.AppVersion }}"
 {{- range $key, $val := .Values.conf }}
   {{ $key }}: {{ $val | quote }}
 {{- end }}
