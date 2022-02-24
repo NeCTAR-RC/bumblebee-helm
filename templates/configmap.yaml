@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: {{ include "bumblebee.fullname" . }}
 data:
-  IMAGE_ID: "{{ .Values.bumblebee.image.repository }}:{{ .Values.bumblebee.image.tag | default .Chart.AppVersion }}"
+  IMAGE_ID: "{{ .Values.bumblebee.image.tag | default .Chart.AppVersion }}"
 {{- range $key, $val := .Values.conf }}
   {{ $key }}: {{ $val | quote }}
 {{- end }}
