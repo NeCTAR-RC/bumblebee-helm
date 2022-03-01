@@ -1,0 +1,50 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "bumblebee.fullname" . }}-expirer
+  labels:
+    {{- include "bumblebee.labels" . | nindent 4 }}
+    app.kubernetes.io/component: expirer
+spec:
+  schedule: "0,30 * * * *"
+  selector:
+    matchLabels:
+      {{- include "bumblebee.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: expirer
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          annotations:
+            vault.hashicorp.com/role: "{{ .Values.vault.role }}"
+            vault.hashicorp.com/agent-init-first: "true"
+            vault.hashicorp.com/agent-inject: "true"
+            vault.hashicorp.com/agent-inject-status: "update"
+            vault.hashicorp.com/agent-inject-secret-secret_envs: "{{ .Values.vault.settings_secret }}"
+            vault.hashicorp.com/agent-inject-template-secret_envs: |
+              {{ print "{{- with secret \"" .Values.vault.settings_secret "\" -}}" }}
+              {{ print "{{- range $key, $val := .Data.data }}" }}
+              {{ print "export {{ $key }}=\"{{ $val }}\"" }}
+              {{ print "{{- end }}" }}
+              {{ print "{{- end -}}" }}
+          labels:
+            {{- include "bumblebee.selectorLabels" . | nindent 12 }}
+            app.kubernetes.io/component: expirer
+        spec:
+          containers:
+          - name: {{ .Chart.Name }}
+            securityContext:
+              {{- toYaml .Values.securityContext | nindent 14 }}
+            image: "{{ .Values.bumblebee.image.repository }}:{{ .Values.bumblebee.image.tag | default .Chart.AppVersion }}"
+            imagePullPolicy: {{ .Values.bumblebee.image.pullPolicy }}
+            envFrom:
+              - configMapRef:
+                  name: {{ include "bumblebee.fullname" . }}
+            command:
+              - /bin/sh
+              - -c
+              - . /vault/secrets/secret_envs && /docker-run-expirer.sh
+            resources:
+              {{- toYaml .Values.resources | nindent 14 }}
+          restartPolicy: OnFailure
+          concurrencyPolicy: Forbid

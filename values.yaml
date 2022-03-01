@@ -84,6 +84,7 @@ conf:
   DB_HOST: localhost
   DB_USER: bumblebee
   REDIS_HOST: redis
+  EXPIRER_OPTS: '--dry-run --verbose'
 
 vault:
   role: k8s
