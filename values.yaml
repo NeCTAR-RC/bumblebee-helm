@@ -71,9 +71,9 @@ rqscheduler:
 conf:
   DEBUG: False
   ALLOWED_HOSTS: '*'
-  SITE_URL:
-  GUACAMOLE_URL:
-  OS_APPLICATION_CREDENTIAL_ID:
+  SITE_URL: ''
+  GUACAMOLE_URL: ''
+  OS_APPLICATION_CREDENTIAL_ID: ''
   OS_AUTH_URL: https://keystone.rc.nectar.org.au:5000/v3
   OS_NETWORK: bumblebee
   OS_SECGROUPS: bumblebee

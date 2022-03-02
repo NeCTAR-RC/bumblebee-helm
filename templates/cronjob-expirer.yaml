@@ -7,10 +7,7 @@ metadata:
     app.kubernetes.io/component: expirer
 spec:
   schedule: "0,30 * * * *"
-  selector:
-    matchLabels:
-      {{- include "bumblebee.selectorLabels" . | nindent 6 }}
-      app.kubernetes.io/component: expirer
+  concurrencyPolicy: Forbid
   jobTemplate:
     spec:
       template:
@@ -47,4 +44,3 @@ spec:
             resources:
               {{- toYaml .Values.resources | nindent 14 }}
           restartPolicy: OnFailure
-          concurrencyPolicy: Forbid
