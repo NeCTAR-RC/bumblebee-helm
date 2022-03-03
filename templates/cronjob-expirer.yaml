@@ -28,6 +28,7 @@ spec:
             {{- include "bumblebee.selectorLabels" . | nindent 12 }}
             app.kubernetes.io/component: expirer
         spec:
+          serviceAccountName: {{ include "bumblebee.serviceAccountName" . }}
           containers:
           - name: {{ .Chart.Name }}
             securityContext:
