@@ -16,6 +16,7 @@ spec:
             vault.hashicorp.com/role: "{{ .Values.vault.role }}"
             vault.hashicorp.com/agent-init-first: "true"
             vault.hashicorp.com/agent-inject: "true"
+            vault.hashicorp.com/agent-pre-populate-only : "true"
             vault.hashicorp.com/agent-inject-status: "update"
             vault.hashicorp.com/agent-inject-secret-secret_envs: "{{ .Values.vault.settings_secret }}"
             vault.hashicorp.com/agent-inject-template-secret_envs: |
@@ -29,6 +30,7 @@ spec:
             app.kubernetes.io/component: expirer
         spec:
           serviceAccountName: {{ include "bumblebee.serviceAccountName" . }}
+          ttlSecondsAfterFinished: 300
           containers:
           - name: {{ .Chart.Name }}
             securityContext:
