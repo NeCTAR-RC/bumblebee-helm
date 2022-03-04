@@ -10,6 +10,7 @@ spec:
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
+      ttlSecondsAfterFinished: 300
       template:
         metadata:
           annotations:
@@ -30,7 +31,6 @@ spec:
             app.kubernetes.io/component: expirer
         spec:
           serviceAccountName: {{ include "bumblebee.serviceAccountName" . }}
-          ttlSecondsAfterFinished: 300
           containers:
           - name: {{ .Chart.Name }}
             securityContext:
