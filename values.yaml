@@ -75,6 +75,7 @@ conf:
   GUACAMOLE_URL: ''
   OS_APPLICATION_CREDENTIAL_ID: ''
   OS_AUTH_URL: https://keystone.rc.nectar.org.au:5000/v3
+  OS_PROJECT_ID: ''
   OS_NETWORK: bumblebee
   OS_SECGROUPS: bumblebee
   OIDC_SERVER_URL: https://sso.rc.nectar.org.au/auth/realms/nectar/protocol/openid-connect
