@@ -16,17 +16,7 @@ spec:
   template:
     metadata:
       annotations:
-        vault.hashicorp.com/role: "{{ .Values.vault.role }}"
-        vault.hashicorp.com/agent-init-first: "true"
-        vault.hashicorp.com/agent-inject: "true"
-        vault.hashicorp.com/agent-inject-status: "update"
-        vault.hashicorp.com/agent-inject-secret-secret_envs: "{{ .Values.vault.settings_secret }}"
-        vault.hashicorp.com/agent-inject-template-secret_envs: |
-          {{ print "{{- with secret \"" .Values.vault.settings_secret "\" -}}" }}
-          {{ print "{{- range $key, $val := .Data.data }}" }}
-          {{ print "export {{ $key }}=\"{{ $val }}\"" }}
-          {{ print "{{- end }}" }}
-          {{ print "{{- end -}}" }}
+        {{- include "bumblebee.vaultAnnotations" . | nindent 8 }}
       labels:
         {{- include "bumblebee.selectorLabels" . | nindent 8 }}
         app.kubernetes.io/component: rqscheduler

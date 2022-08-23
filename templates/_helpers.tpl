@@ -60,3 +60,21 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Vault annotations
+*/}}
+{{- define "bumblebee.vaultAnnotations" -}}
+vault.hashicorp.com/role: "{{ .Values.vault.role }}"
+vault.hashicorp.com/agent-init-first: "true"
+vault.hashicorp.com/agent-inject: "true"
+vault.hashicorp.com/agent-pre-populate-only: "true"
+vault.hashicorp.com/agent-inject-status: "update"
+vault.hashicorp.com/agent-inject-secret-secret_envs: "{{ .Values.vault.settings_secret }}"
+vault.hashicorp.com/agent-inject-template-secret_envs: |
+  {{ print "{{- with secret \"" .Values.vault.settings_secret "\" -}}" }}
+  {{ print "{{- range $key, $val := .Data.data }}" }}
+  {{ print "export {{ $key }}=\"{{ $val }}\"" }}
+  {{ print "{{- end }}" }}
+  {{ print "{{- end -}}" }}
+{{- end }}
