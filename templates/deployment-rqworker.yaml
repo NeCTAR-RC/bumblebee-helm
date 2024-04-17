@@ -39,7 +39,7 @@ spec:
                 name: {{ include "bumblebee.fullname" . }}
           command: ['sh', '-c', '. /vault/secrets/secret_envs && /docker-run-rqworker.sh']
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml .Values.rqworker.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

@@ -54,7 +54,7 @@ spec:
             initialDelaySeconds: 10
             failureThreshold: 6
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml .Values.bumblebee.resources | nindent 12 }}
       initContainers:
         - name: {{ .Chart.Name }}-init
           securityContext:
