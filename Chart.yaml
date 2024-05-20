@@ -2,11 +2,11 @@ apiVersion: v2
 name: bumblebee
 description: A Helm chart for Bumblebee
 type: application
-version: 1.6.0
+version: 1.7.0
 appVersion: b20d047
 dependencies:
 - name: redis
-  version: 19.3.2
+  version: 19.3.4
   repository: https://charts.bitnami.com/bitnami
   condition: components.redis
 - name: common
