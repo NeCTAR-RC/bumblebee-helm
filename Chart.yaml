@@ -2,8 +2,8 @@ apiVersion: v2
 name: bumblebee
 description: A Helm chart for Bumblebee
 type: application
-version: 1.12.11
-appVersion: 300f77b
+version: 1.12.12
+appVersion: 14d645a
 dependencies:
 - name: redis
   version: 19.5.5
