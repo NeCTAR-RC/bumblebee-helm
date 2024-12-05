@@ -6,7 +6,7 @@ version: 1.12.30
 appVersion: 8779a9d
 dependencies:
 - name: redis
-  version: 20.3.0
+  version: 20.4.0
   repository: https://charts.bitnami.com/bitnami
   condition: components.redis
 - name: common
