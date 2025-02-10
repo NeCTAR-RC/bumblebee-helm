@@ -6,6 +6,9 @@ metadata:
     {{- include "bumblebee.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.bumblebee.service.type }}
+  {{- if ne .Values.bumblebee.service.type "ClusterIP" }}
+  externalTrafficPolicy: Local
+  {{- end }}
   ports:
     - port: {{ .Values.bumblebee.service.port }}
       targetPort: http
