@@ -6,7 +6,7 @@ version: 1.12.42
 appVersion: a73e1ed
 dependencies:
 - name: redis
-  version: 21.2.5
+  version: 21.2.6
   repository: https://charts.bitnami.com/bitnami
   condition: components.redis
 - name: common
