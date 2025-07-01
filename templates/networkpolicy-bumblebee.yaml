@@ -1,0 +1,18 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "bumblebee.fullname" . }}
+  labels:
+    {{- include "bumblebee.labels" . | nindent 4 }}
+    app.kubernetes.io/component: bumblebee
+spec:
+  podSelector:
+    matchLabels:
+      {{- include "bumblebee.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: bumblebee
+  policyTypes:
+  - Ingress
+  ingress:
+    - ports:
+        - port: {{ .Values.bumblebee.service.port }}

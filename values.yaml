@@ -107,6 +107,14 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
+gateway:
+  enabled: false
+  annotations: {}
+  hostnames:
+    - chart-example.local
+  parentRefs:
+    - name: default
+
 ingress:
   enabled: false
   className: ""

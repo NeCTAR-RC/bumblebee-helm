@@ -1,0 +1,15 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "bumblebee.fullname" . }}-rqscheduler
+  labels:
+    {{- include "bumblebee.labels" . | nindent 4 }}
+    app.kubernetes.io/component: rqscheduler
+spec:
+  podSelector:
+    matchLabels:
+      {{- include "bumblebee.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: rqscheduler
+  policyTypes:
+  - Ingress
