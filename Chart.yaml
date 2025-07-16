@@ -7,7 +7,7 @@ appVersion: a73e1ed
 dependencies:
 - name: redis
   repository: oci://registry-1.docker.io/bitnamicharts
-  version: 21.2.10
+  version: 21.2.12
   condition: components.redis
 - name: common
   repository: oci://registry-1.docker.io/bitnamicharts
