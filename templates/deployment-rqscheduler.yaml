@@ -16,6 +16,7 @@ spec:
   template:
     metadata:
       annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
         {{- include "bumblebee.vaultAnnotations" . | nindent 8 }}
       labels:
         {{- include "bumblebee.selectorLabels" . | nindent 8 }}
