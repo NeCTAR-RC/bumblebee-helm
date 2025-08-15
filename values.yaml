@@ -107,6 +107,13 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
+metrics:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+    basicAuth:
+      existingSecret: bumblebee-metrics-auth
+
 gateway:
   enabled: false
   annotations: {}

@@ -1,0 +1,26 @@
+{{- if and .Values.metrics.enabled .Values.metrics.serviceMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "bumblebee.fullname" . }}
+  labels:
+    {{- include "bumblebee.labels" . | nindent 4 }}
+    release: prometheus
+spec:
+  endpoints:
+    - basicAuth:
+        password:
+          key: password
+          name: {{ .Values.metrics.serviceMonitor.basicAuth.existingSecret }}
+        username:
+          key: username
+          name: {{ .Values.metrics.serviceMonitor.basicAuth.existingSecret }}
+      interval: 30s
+      port: http
+  namespaceSelector:
+    matchNames:
+      - {{ include "common.names.namespace" . | quote }}
+  selector:
+    matchLabels:
+      {{- include "bumblebee.selectorLabels" . | nindent 6 }}
+{{- end }}
