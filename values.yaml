@@ -77,6 +77,15 @@ conf:
   INSTANCE_LAUNCH_WAIT: 600
   VOLUME_CREATION_WAIT: 600
 
+redis:
+  global:
+    security:
+      allowInsecureImages: true
+  image:
+    registry: registry.rc.nectar.org.au/docker.io
+    repository: bitnamisecure/redis
+    tag: latest
+
 vault:
   role: k8s
   settings_secret: 'path/to/secret/in/vault'
