@@ -79,12 +79,14 @@ conf:
 
 redis:
   global:
+    imageRegistry: registry.rc.nectar.org.au/docker.io
     security:
       allowInsecureImages: true
   image:
-    registry: registry.rc.nectar.org.au/docker.io
     repository: bitnamisecure/redis
     tag: latest
+    volumePermissions:
+      enabled: false
 
 vault:
   role: k8s
