@@ -2,8 +2,8 @@ apiVersion: v2
 name: bumblebee
 description: A Helm chart for Bumblebee
 type: application
-version: 1.16.7
-appVersion: 2.0.7
+version: 1.16.8
+appVersion: 2.0.8
 dependencies:
 - name: redis
   repository: oci://registry-1.docker.io/bitnamicharts
