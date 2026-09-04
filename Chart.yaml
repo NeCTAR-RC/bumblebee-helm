@@ -7,12 +7,12 @@ appVersion: 2.3.0
 dependencies:
 - name: redis
   repository: oci://registry-1.docker.io/bitnamicharts
-  version: 27.0.18
+  version: 28.0.15
   condition: components.redis
 - name: common
   repository: oci://registry-1.docker.io/bitnamicharts
   version: 2.41.0
 - name: mariadb
-  version: 26.2.1
+  version: 27.0.8
   repository: oci://registry-1.docker.io/bitnamicharts
   condition: components.mariadb
