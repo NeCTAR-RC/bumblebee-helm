@@ -13,6 +13,6 @@ dependencies:
   repository: oci://registry-1.docker.io/bitnamicharts
   version: 2.41.0
 - name: mariadb
-  version: 27.3.0
+  version: 28.1.1
   repository: oci://registry-1.docker.io/bitnamicharts
   condition: components.mariadb
