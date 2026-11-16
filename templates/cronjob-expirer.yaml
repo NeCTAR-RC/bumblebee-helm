@@ -35,7 +35,7 @@ spec:
           - name: {{ .Chart.Name }}
             securityContext:
               {{- toYaml .Values.securityContext | nindent 14 }}
-            image: "{{ .Values.bumblebee.image.repository }}:{{ .Values.bumblebee.image.tag | default .Chart.AppVersion }}"
+            image: "{{ .Values.bumblebee.image.repository }}:{{ include "bumblebee.imageTag" . }}"
             imagePullPolicy: {{ .Values.bumblebee.image.pullPolicy }}
             envFrom:
               - configMapRef:

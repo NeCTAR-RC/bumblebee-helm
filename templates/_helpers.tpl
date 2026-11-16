@@ -62,6 +62,13 @@ Create the name of the service account to use
 {{- end }}
 
 {{/*
+Image tag. Also honours a top-level image.tag, which the devenv pipeline sets.
+*/}}
+{{- define "bumblebee.imageTag" -}}
+{{- .Values.bumblebee.image.tag | default (.Values.image | default dict).tag | default .Chart.AppVersion }}
+{{- end }}
+
+{{/*
 Vault annotations
 */}}
 {{- define "bumblebee.vaultAnnotations" -}}
