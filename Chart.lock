@@ -1,12 +1,12 @@
 dependencies:
 - name: redis
   repository: oci://registry-1.docker.io/bitnamicharts
-  version: 28.3.12
+  version: 28.3.16
 - name: common
   repository: oci://registry-1.docker.io/bitnamicharts
   version: 2.41.0
 - name: mariadb
   repository: oci://registry-1.docker.io/bitnamicharts
-  version: 28.1.6
-digest: sha256:cec5d2cbd2f2e7703e0c9dc6da87a4f225afed09efcf3334096706dd83f6b3e5
-generated: "2026-11-04T17:07:13.636203275Z"
+  version: 28.1.9
+digest: sha256:d5d4814161ca54c55321519929952a01b96c4ac6118aef891dbb60b313212cc4
+generated: "2026-11-25T17:04:52.692518244Z"
